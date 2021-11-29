@@ -20,7 +20,6 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build
-
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
@@ -32,7 +31,7 @@ jobs:
       - name: Generate deployment package
         run: |
           mkdir -p deploy
-          cp build/libs/*.jar deploy/application.jar # 빌드 완료 시 jar 파일명을 application.jar로 변경
+          cp build/libs/guide-0.0.1-SNAPSHOT.jar deploy/application.jar # 빌드 완료 시 jar 파일명을 application.jar로 변경
           cp Procfile deploy/Procfile
           cp -r .ebextensions deploy/.ebextensions
           cp -r .platform deploy/.platform
