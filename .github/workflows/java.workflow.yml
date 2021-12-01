@@ -10,15 +10,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: jakejarvis/s3-sync-action@master
-#        with:
-#          args: --acl public-read
-        env:
-          AWS_S3_BUCKET: 'springboot-guide'
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: 'ap-northeast-2'   # optional: defaults to us-east-1
-          SOURCE_DIR: 'src/main/resources/static'      # optional: defaults to entire repository
+      - name: Deploy to S3
+          env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          run: |
+            aws s3 cp /src/main/resources/static \
+              --recursive \
+              --region ap-northeast-2 \
+              build s3://springboot-guide
 
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
