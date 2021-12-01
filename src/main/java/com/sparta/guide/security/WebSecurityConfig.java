@@ -30,7 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/signup").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -38,18 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .formLogin()
-                .loginPage("/user/login")
-                .failureUrl("/user/login/error")
-                .defaultSuccessUrl("/")
-                .permitAll()
-                .and()
                 .logout()
-                .logoutUrl("/user/logout")
                 .permitAll()
                 .and()
-                .exceptionHandling()
-                .accessDeniedPage("/user/forbidden");
+                .exceptionHandling();
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
