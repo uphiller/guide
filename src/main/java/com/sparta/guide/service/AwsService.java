@@ -3,6 +3,7 @@ package com.sparta.guide.service;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @Slf4j
@@ -34,13 +36,17 @@ public class AwsService {
         String origName = uploadFile.getOriginalFilename();
         String url;
         try {
-            final String ext = origName.substring(origName.lastIndexOf('.'));
-            final String saveFileName = getUuid() + ext;
-            File file = new File(saveFileName);
-            uploadFile.transferTo(file);
-            uploadOnS3(saveFileName, file);
+            String ext = origName.substring(origName.lastIndexOf('.'));
+            String saveFileName = getUuid() + ext;
+
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(uploadFile.getContentType());
+            objectMetadata.setContentLength(uploadFile.getBytes().length);
+
+            InputStream inputStream = uploadFile.getInputStream();
+            uploadOnS3ByInputStream(saveFileName, inputStream, objectMetadata);
             url = defaultUrl + saveFileName;
-            file.delete();
+
         } catch (StringIndexOutOfBoundsException e) {
             url = null;
         }
@@ -51,11 +57,11 @@ public class AwsService {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    private void uploadOnS3(final String findName, final File file) {
+    private void uploadOnS3ByInputStream(String findName, InputStream inputStream, ObjectMetadata objectMetadata) {
 
-        final TransferManager transferManager = TransferManagerBuilder.standard().withS3Client(amazonS3Client).build();
-        final PutObjectRequest request = new PutObjectRequest(bucket, findName, file).withCannedAcl(CannedAccessControlList.PublicRead);
-        final Upload upload =  transferManager.upload(request);
+        TransferManager transferManager = TransferManagerBuilder.standard().withS3Client(amazonS3Client).build();
+        PutObjectRequest request = new PutObjectRequest(bucket, findName, inputStream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead);
+        Upload upload =  transferManager.upload(request);
 
         try {
             upload.waitForCompletion();
