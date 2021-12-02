@@ -29,7 +29,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build -Pprofile=dev
+        run: ./gradlew clean build -Dspring.profiles.active=dev
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2

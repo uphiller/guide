@@ -36,7 +36,7 @@ public class AwsService {
         try {
             final String ext = origName.substring(origName.lastIndexOf('.'));
             final String saveFileName = getUuid() + ext;
-            File file = new File(System.getProperty("user.dir") + saveFileName);
+            File file = new File(saveFileName);
             uploadFile.transferTo(file);
             uploadOnS3(saveFileName, file);
             url = defaultUrl + saveFileName;
