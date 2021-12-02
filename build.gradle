@@ -32,7 +32,11 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'com.github.maricn:logback-slack-appender:1.4.0'
-    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.2.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+}
+
+jar {
+    enabled = false
 }
 
 test {

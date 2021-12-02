@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build and Push file
 on:
   push:
     branches:
@@ -29,7 +29,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build -Dspring.profiles.active=dev
+        run: ./gradlew clean build
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
@@ -41,7 +41,7 @@ jobs:
       - name: Generate deployment package
         run: |
           mkdir -p deploy
-          cp build/libs/guide-0.0.1-SNAPSHOT.jar deploy/application.jar
+          cp build/libs/*.jar deploy/application.jar
           cd deploy && zip -r deploy.zip .
 
       - name: Beanstalk Deploy
