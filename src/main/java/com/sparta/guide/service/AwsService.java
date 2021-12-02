@@ -44,7 +44,7 @@ public class AwsService {
             objectMetadata.setContentLength(uploadFile.getBytes().length);
 
             InputStream inputStream = uploadFile.getInputStream();
-            uploadOnS3ByInputStream(saveFileName, inputStream, objectMetadata);
+            uploadOnS3(saveFileName, inputStream, objectMetadata);
             url = defaultUrl + saveFileName;
 
         } catch (StringIndexOutOfBoundsException e) {
@@ -57,7 +57,7 @@ public class AwsService {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    private void uploadOnS3ByInputStream(String findName, InputStream inputStream, ObjectMetadata objectMetadata) {
+    private void uploadOnS3(String findName, InputStream inputStream, ObjectMetadata objectMetadata) {
 
         TransferManager transferManager = TransferManagerBuilder.standard().withS3Client(amazonS3Client).build();
         PutObjectRequest request = new PutObjectRequest(bucket, findName, inputStream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead);
