@@ -1,10 +1,9 @@
 package com.sparta.guide.domain;
 
-import com.sparta.guide.dto.ArticleRequestDto;
+import com.sparta.guide.dto.PostArticleDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -27,9 +26,9 @@ public class Article extends Timestamped {
     @Column(nullable = true)
     private String imageUrl;
 
-    public Article(ArticleRequestDto requestDto, String imageUrl) {
-        this.title = requestDto.getTitle();
-        this.content = requestDto.getContent();
+    public Article(PostArticleDto.Request request, String imageUrl) {
+        this.title = request.getTitle();
+        this.content = request.getContent();
         this.imageUrl = imageUrl;
     }
 }

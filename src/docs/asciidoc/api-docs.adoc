@@ -1,0 +1,19 @@
+= Article API Documents
+:toc: left
+:doctype: book
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+= 사용자 페이지
+
+== 아티클
+=== 아티클 저장
+include::{snippets}/article/save/http-request.adoc[]
+include::{snippets}/article/save/request-parameters.adoc[]
+include::{snippets}/article/save/request-parts.adoc[]
+
+=== 아티클 리스트
+include::{snippets}/article/list/http-request.adoc[]
+include::{snippets}/article/list/response-fields.adoc[]

@@ -1,7 +1,7 @@
 package com.sparta.guide.service;
 
 import com.sparta.guide.domain.Article;
-import com.sparta.guide.dto.ArticleRequestDto;
+import com.sparta.guide.dto.PostArticleDto;
 import com.sparta.guide.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,10 +19,10 @@ public class ArticleService {
     private final AwsService awsService;
 
     @Transactional
-    public Article setArticle(ArticleRequestDto articleRequestDto) throws IOException {
+    public Article setArticle(PostArticleDto.Request request) throws IOException {
         String url = null;
-        if(articleRequestDto.getImage() != null) url = awsService.upload(articleRequestDto.getImage());
-        Article article = new Article(articleRequestDto, url);
+        if(request.getImage() != null) url = awsService.upload(request.getImage());
+        Article article = new Article(request, url);
         articleRepository.save(article);
 
         return article;
