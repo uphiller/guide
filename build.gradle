@@ -15,6 +15,18 @@ configurations {
     }
 }
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'BOOT-INF/classes/static/docs'
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -41,18 +53,6 @@ dependencies {
 
 jar {
     enabled = false
-}
-
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
-
-bootJar {
-    dependsOn asciidoctor
-    copy {
-        from "${asciidoctor.outputDir}"
-        into 'BOOT-INF/classes/static/docs'
-    }
 }
 
 test {
