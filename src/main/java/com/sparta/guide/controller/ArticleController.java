@@ -34,4 +34,9 @@ public class ArticleController {
         List<GetArticlesDto.Response> response = modelMapper.map(articles, new TypeToken<List<GetArticlesDto.Response>>() {}.getType());
         return response;
     }
+
+    @GetMapping("/article")
+    public String getTest() throws IOException {
+        return "Hello!!";
+    }
 }
