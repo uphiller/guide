@@ -35,7 +35,7 @@ public class ArticleController {
         return response;
     }
 
-    @GetMapping("/article")
+    @GetMapping("/test")
     public String getTest() throws IOException {
         return "Hello!!";
     }
