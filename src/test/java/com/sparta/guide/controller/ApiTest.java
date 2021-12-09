@@ -81,6 +81,7 @@ public class ApiTest {
                 .andExpect(status().isOk())
                 .andDo(document("article/list",
                         responseFields(
+                                fieldWithPath("[].idx").type(JsonFieldType.NUMBER).description("아티클 IDX"),
                                 fieldWithPath("[].title").type(JsonFieldType.STRING).description("제목"),
                                 fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("이미지주소").optional()
                         )
