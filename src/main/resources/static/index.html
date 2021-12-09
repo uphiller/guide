@@ -8,14 +8,9 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
     <title>Album example · Bootstrap v5.1</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
-
-
-
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -29,7 +24,6 @@
     <meta name="theme-color" content="#7952b3">
     <script src="js/base.js"></script>
     <script src="js/index.js"></script>
-
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -45,11 +39,8 @@
             }
         }
     </style>
-
-
 </head>
 <body>
-
 <header>
     <div class="collapse bg-dark" id="navbarHeader">
         <div class="container">
@@ -91,6 +82,9 @@
                 <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
                 <p>
                     <a class="btn btn-primary my-2" data-toggle="modal" data-target="#exampleModalCenter">Upload Photo</a>
+                    <button onclick="openCloseLogin()" id="btn-login" type="button" class="btn btn-secondary">로그인</button>
+                    <button onclick="logout()" id="btn-logout" type="button" class="btn btn-danger" style="display:none">로그아웃</button>
+                    <button onclick="openCloseJoin()" id="btn-join" type="button" class="btn btn-success">회원가입</button>
                 </p>
             </div>
         </div>
@@ -148,6 +142,65 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="btn_save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">로그인</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="login-id" class="col-form-label">아이디</label>
+                        <input type="text" class="form-control" id="login-id">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-pwd" class="col-form-label">패스워드</label>
+                        <input type="password" class="form-control" id="login-pwd">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="login()">로그인</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Join Modal -->
+<div class="modal fade" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">회원가입</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="join-id" class="col-form-label">아이디</label>
+                        <input type="text" class="form-control" id="join-id">
+                    </div>
+                    <div class="form-group">
+                        <label for="join-pwd" class="col-form-label">패스워드</label>
+                        <input type="password" class="form-control" id="join-pwd">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="join()">회원가입</button>
             </div>
         </div>
     </div>

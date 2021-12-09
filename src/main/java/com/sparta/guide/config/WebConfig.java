@@ -1,4 +1,4 @@
-package com.sparta.guide;
+package com.sparta.guide.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

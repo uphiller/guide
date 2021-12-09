@@ -25,19 +25,15 @@ public class User extends Timestamped {
     private String password;
 
     @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
 
     @Column(nullable = true)
     private Long kakaoId;
 
-    public User(String username, String password, String email, UserRole role) {
+    public User(String username, String password, UserRole role) {
         this.username = username;
         this.password = password;
-        this.email = email;
         this.role = role;
     }
 

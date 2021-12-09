@@ -9,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -33,10 +32,5 @@ public class ArticleController {
         List<Article> articles = articleService.getArticles();
         List<GetArticlesDto.Response> response = modelMapper.map(articles, new TypeToken<List<GetArticlesDto.Response>>() {}.getType());
         return response;
-    }
-
-    @GetMapping("/test")
-    public String getTest() throws IOException {
-        return "Hello!!";
     }
 }

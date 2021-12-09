@@ -1,4 +1,4 @@
-package com.sparta.guide.security;
+package com.sparta.guide.config;
 
 import com.sparta.guide.controller.JwtAuthenticationEntryPoint;
 import com.sparta.guide.controller.JwtAuthenticationFilter;
@@ -30,11 +30,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/*.html").permitAll()
                 .antMatchers("/article").permitAll()
+                .antMatchers("/wscn").permitAll()
                 .antMatchers("/articles").permitAll()
                 .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/docs/**").permitAll()
+                .antMatchers("/websocket/**").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/signup").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

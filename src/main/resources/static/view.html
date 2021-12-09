@@ -1,0 +1,296 @@
+
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Album example · Bootstrap v5.1</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="https://getbootstrap.com/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="https://getbootstrap.com//docs/5.1/assets/img/favicons/favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+    <meta name="theme-color" content="#7952b3">
+    <script src="js/base.js"></script>
+    <script src="js/view.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #edeff2;
+            font-family: "Calibri", "Roboto", sans-serif;
+        }
+
+        .chat_window {
+            position: absolute;
+            width: calc(100% - 20px);
+            max-width: 800px;
+            height: 500px;
+            border-radius: 10px;
+            background-color: #fff;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            background-color: #f8f8f8;
+            overflow: hidden;
+        }
+
+        .top_menu {
+            background-color: #fff;
+            width: 100%;
+            padding: 20px 0 15px;
+            box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+        }
+        .top_menu .buttons {
+            margin: 3px 0 0 20px;
+            position: absolute;
+        }
+        .top_menu .buttons .button {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+        }
+        .top_menu .buttons .button.close {
+            background-color: #f5886e;
+        }
+        .top_menu .buttons .button.minimize {
+            background-color: #fdbf68;
+        }
+        .top_menu .buttons .button.maximize {
+            background-color: #a3d063;
+        }
+        .top_menu .title {
+            text-align: center;
+            color: #bcbdc0;
+            font-size: 20px;
+        }
+
+        .messages {
+            position: relative;
+            list-style: none;
+            padding: 20px 10px 0 10px;
+            margin: 0;
+            height: 347px;
+            overflow: scroll;
+        }
+        .messages .message {
+            clear: both;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: all 0.5s linear;
+            opacity: 0;
+        }
+        .messages .message.left .avatar {
+            background-color: #f5886e;
+            float: left;
+        }
+        .messages .message.left .text_wrapper {
+            background-color: #ffe6cb;
+            margin-left: 20px;
+        }
+        .messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before {
+            right: 100%;
+            border-right-color: #ffe6cb;
+        }
+        .messages .message.left .text {
+            color: #c48843;
+        }
+        .messages .message.right .avatar {
+            background-color: #fdbf68;
+            float: right;
+        }
+        .messages .message.right .text_wrapper {
+            background-color: #c7eafc;
+            margin-right: 20px;
+            float: right;
+        }
+        .messages .message.right .text_wrapper::after, .messages .message.right .text_wrapper::before {
+            left: 100%;
+            border-left-color: #c7eafc;
+        }
+        .messages .message.right .text {
+            color: #45829b;
+        }
+        .messages .message.appeared {
+            opacity: 1;
+        }
+        .messages .message .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .messages .message .text_wrapper {
+            display: inline-block;
+            padding: 20px;
+            border-radius: 6px;
+            width: calc(100% - 85px);
+            min-width: 100px;
+            position: relative;
+        }
+        .messages .message .text_wrapper::after, .messages .message .text_wrapper:before {
+            top: 18px;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+        .messages .message .text_wrapper::after {
+            border-width: 13px;
+            margin-top: 0px;
+        }
+        .messages .message .text_wrapper::before {
+            border-width: 15px;
+            margin-top: -2px;
+        }
+        .messages .message .text_wrapper .text {
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        .bottom_wrapper {
+            position: relative;
+            width: 100%;
+            background-color: #fff;
+            padding: 20px 20px;
+            position: absolute;
+            bottom: 0;
+        }
+        .bottom_wrapper .message_input_wrapper {
+            display: inline-block;
+            height: 50px;
+            border-radius: 25px;
+            border: 1px solid #bcbdc0;
+            width: calc(100% - 160px);
+            position: relative;
+            padding: 0 20px;
+        }
+        .bottom_wrapper .message_input_wrapper .message_input {
+            border: none;
+            height: 100%;
+            box-sizing: border-box;
+            width: calc(100% - 40px);
+            position: absolute;
+            outline-width: 0;
+            color: gray;
+        }
+        .bottom_wrapper .send_message {
+            width: 140px;
+            height: 50px;
+            display: inline-block;
+            border-radius: 50px;
+            background-color: #a3d063;
+            border: 2px solid #a3d063;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s linear;
+            text-align: center;
+            float: right;
+        }
+        .bottom_wrapper .send_message:hover {
+            color: #a3d063;
+            background-color: #fff;
+        }
+        .bottom_wrapper .send_message .text {
+            font-size: 18px;
+            font-weight: 300;
+            display: inline-block;
+            line-height: 48px;
+        }
+
+        .message_template {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">About</h4>
+                    <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Contact</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                        <li><a href="#" class="text-white">Like on Facebook</a></li>
+                        <li><a href="#" class="text-white">Email me</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <strong>Album</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+    </div>
+</div>
+<div class="chat_window">
+    <div class="top_menu">
+        <div class="buttons">
+            <div class="button close"></div>
+            <div class="button minimize"></div>
+            <div class="button maximize"></div>
+        </div>
+        <div class="title">Chat</div>
+    </div>
+    <ul class="messages"></ul>
+    <div class="bottom_wrapper clearfix">
+        <div class="message_input_wrapper">
+            <input class="message_input" placeholder="Type your message here..." />
+        </div>
+        <div class="send_message">
+            <div class="icon"></div>
+            <div class="text" id="btn_send">Send</div>
+        </div>
+    </div>
+</div>
+<div class="message_template">
+    <li class="message">
+        <div class="avatar"></div>
+        <div class="text_wrapper">
+            <div class="text"></div>
+        </div>
+    </li>
+</div>
+</main>
+</body>
+</html>
