@@ -13,7 +13,7 @@ function getParam(name) {
 }
 
 function onSocket(idx) {
-    let socket = new SockJS('/websocket');
+    let socket = new SockJS(`${apiUrl}/websocket`);
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
