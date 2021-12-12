@@ -15,6 +15,8 @@ configurations {
     }
 }
 
+ext['log4j2.version'] = '2.15.0'
+
 ext {
     snippetsDir = file('build/generated-snippets')
 }
