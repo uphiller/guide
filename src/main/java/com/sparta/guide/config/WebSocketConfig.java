@@ -21,7 +21,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/websocket").setAllowedOrigins("https://api.springguide.shop","https://www.springguide.shop","http://localhost:8080").withSockJS();
+        registry.addEndpoint("/websocket").setAllowedOrigins("https://docker.springguide.shop","https://www.springguide.shop","http://localhost:8080").withSockJS();
     }
 
     @Override
