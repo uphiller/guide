@@ -28,20 +28,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: spring-guide
-          IMAGE_TAG: latest
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+#      - name: Login to Amazon ECR
+#        id: login-ecr
+#        uses: aws-actions/amazon-ecr-login@v1
+#
+#      - name: Build, tag, and push image to Amazon ECR
+#        id: build-image
+#        env:
+#          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#          ECR_REPOSITORY: spring-guide
+#          IMAGE_TAG: latest
+#        run: |
+#          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+#          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+#          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
