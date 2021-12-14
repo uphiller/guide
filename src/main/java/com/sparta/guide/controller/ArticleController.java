@@ -31,7 +31,6 @@ public class ArticleController {
 
     @GetMapping("/articles")
     public List<GetArticlesDto.Response> getArticles(){
-        log.error("1234");
         List<Article> articles = articleService.getArticles();
         List<GetArticlesDto.Response> response = modelMapper.map(articles, new TypeToken<List<GetArticlesDto.Response>>() {}.getType());
         return response;
