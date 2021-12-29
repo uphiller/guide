@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 @Slf4j
 public class Scheduler {
-    @Scheduled(cron = "0 15 19 ? * *")
+    @Scheduled(cron = "0 25 19 ? * *")
     public void runScheudler(){
         log.error("스케줄러 동작 " + new Date());
     }
