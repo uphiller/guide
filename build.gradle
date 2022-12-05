@@ -1,11 +1,11 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.7'
+    id 'org.springframework.boot' version '2.6.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id "org.asciidoctor.jvm.convert" version "3.3.2"
     id 'java'
 }
 
-group = 'com.sparta'
+group = 'com.battercodelab'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -29,6 +29,14 @@ bootJar {
 }
 
 repositories {
+    maven {
+        url 'http://70.121.224.52:8081/repository/anyframe-public/'
+        allowInsecureProtocol true
+    }
+    maven {
+        url 'http://70.121.224.52:8081/repository/maven-public/'
+        allowInsecureProtocol true
+    }
     mavenCentral()
 }
 
@@ -51,6 +59,14 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'org.modelmapper:modelmapper:2.4.4'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    // lombok
+    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0' // v1.18.16+ 부터
+
+    // mapstruct
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 }
 
 jar {
