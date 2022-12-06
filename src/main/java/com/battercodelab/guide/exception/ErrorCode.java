@@ -9,7 +9,8 @@ public enum ErrorCode {
     pwd_not_equal(409, "CODE002", "member is not equal pwd."),
     member_is_withdraw(409, "CODE003", "member is withdraw."),
     not_approve(403, "CODE004", "member is not approve."),
-    conflict(409, "CODE005", "data is already exists.");
+    conflict(409, "CODE005", "data is already exists."),
+    invalid_credentials(401, "CODE006", "invalid credentials");
 
     private final String code;
     private final String message;
