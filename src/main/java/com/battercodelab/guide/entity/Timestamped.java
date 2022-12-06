@@ -24,9 +24,9 @@ public abstract class Timestamped {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-//    @CreatedBy
-//    private Long createdId;
-//
-//    @LastModifiedBy
-//    private Long modifiedId;
+    @CreatedBy
+    private Long createdIdx;
+
+    @LastModifiedBy
+    private Long modifiedIdx;
 }
