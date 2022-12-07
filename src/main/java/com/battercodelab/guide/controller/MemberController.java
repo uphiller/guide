@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final JwtTokenUtil jwtTokenUtil;
-    private final AuthenticationManager authenticationManager;
+//    private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final MemberService memberService;
     private final MemberMapper memberMapper;
@@ -37,7 +37,7 @@ public class MemberController {
     @PostMapping(value = "/signup")
     public ResponseEntity<?> signup(@RequestBody SignupDto.Request request) {
         Member member = memberService.registerUser(request);
-        authenticate(request.getId(), request.getPassword());
+//        authenticate(request.getId(), request.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getId());
         final String token = jwtTokenUtil.generateToken(userDetails);
         SignupDto.Response response = memberMapper.toSignupResponseDto(member, token);
@@ -46,14 +46,14 @@ public class MemberController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody LoginDto.Request request) {
-        authenticate(request.getId(), request.getPassword());
+//        authenticate(request.getId(), request.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getId());
         final String token = jwtTokenUtil.generateToken(userDetails);
         LoginDto.Response response = memberMapper.toLoginResponseDto(((UserDetailsImpl) userDetails).getUser(), token);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    private void authenticate(String id, String password) {
+    /*private void authenticate(String id, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(id, password));
         } catch (DisabledException e) {
@@ -61,5 +61,5 @@ public class MemberController {
         } catch (BadCredentialsException e) {
             throw new BusinessException(ErrorCode.conflict);
         }
-    }
+    }*/
 }

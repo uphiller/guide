@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.4'
+    id 'org.springframework.boot' version '3.0.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id "org.asciidoctor.jvm.convert" version "3.3.2"
     id 'java'
@@ -7,7 +7,8 @@ plugins {
 
 group = 'com.battercodelab'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '17'
+
 
 configurations {
     compileOnly {
@@ -16,6 +17,7 @@ configurations {
 }
 
 ext['log4j2.version'] = '2.15.0'
+//ext['tomcat.version'] = '10.1.2'
 
 ext {
     snippetsDir = file('build/generated-snippets')
@@ -37,6 +39,7 @@ repositories {
         url 'http://70.121.224.52:8081/repository/maven-public/'
         allowInsecureProtocol true
     }
+
     mavenCentral()
 }
 
@@ -69,6 +72,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
     implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation "org.springframework.security:spring-security-oauth2-authorization-server:1.0.0"
 }
 
 jar {
